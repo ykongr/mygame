@@ -59,7 +59,6 @@ def main():
 
   # 妖精の画像読込み
   yousai_left_s = pg.Vector2(48,64) # 画面に出力する自キャラサイズ 48x64
-  yousai_left_d = 2 # 自キャラの向き
   yousai_left_raw = pg.image.load('./yousei.png')
   yousai_left_p = pg.Vector2(24,32) # 前向き・2番目のポーズの位置　
   yousai_left_pose_s = pg.Vector2(24,32) # ポーズのサイズ
@@ -67,7 +66,6 @@ def main():
   yousai_left_img = pg.transform.scale(yousai_left_tmp,yousai_left_s) 
 
   yousai_right_s = pg.Vector2(48,64) # 画面に出力する自キャラサイズ 48x64
-  yousai_right_d = 2 # 自キャラの向き
   yousai_right_raw = pg.image.load('./yousei.png')
   yousai_right_p = pg.Vector2(96,96) # 前向き・2番目のポーズの位置　
   yousai_right_pose_s = pg.Vector2(24,32) # ポーズのサイズ
@@ -75,7 +73,6 @@ def main():
   yousai_right_img = pg.transform.scale(yousai_right_tmp,yousai_right_s) 
   
   yousai_top_s = pg.Vector2(48,64) # 画面に出力する自キャラサイズ 48x64
-  yousai_top_d = 2 # 自キャラの向き
   yousai_top_raw = pg.image.load('./yousei.png')
   yousai_top_p = pg.Vector2(96,192) # 前向き・2番目のポーズの位置　
   yousai_top_pose_s = pg.Vector2(24,32) # ポーズのサイズ
@@ -83,7 +80,6 @@ def main():
   yousai_top_img = pg.transform.scale(yousai_top_tmp,yousai_top_s) 
 
   yousai_bottom_s = pg.Vector2(48,64) # 画面に出力する自キャラサイズ 48x64
-  yousai_bottom_d = 2 # 自キャラの向き
   yousai_bottom_raw = pg.image.load('./yousei.png')
   yousai_bottom_p = pg.Vector2(24,128) # 前向き・2番目のポーズの位置　
   yousai_bottom_pose_s = pg.Vector2(24,32) # ポーズのサイズ
@@ -99,42 +95,57 @@ def main():
   speed = 2
   danmaku_slow = {}
   danmaku_fast = {}
-  danmaku_top_slow_p = {}
-  danmaku_top_fast_p = {}
-  danmaku_bottom_slow_p = {}
-  danmaku_bottom_fast_p = {}
-  danmaku_top_slow_dis = {}
-  danmaku_top_fast_dis = {}
-  danmaku_bottom_slow_dis = {}
-  danmaku_bottom_fast_dis = {}
-  danmaku_top_slow_dis_list = []
-  danmaku_top_fast_dis_list = []
-  danmaku_bottom_slow_dis_list = []
-  danmaku_bottom_fast_dis_list = []
   danmaku_slow_list = []
   danmaku_fast_list = []
 
+  danmaku_top_slow_p = {}
+  danmaku_top_fast_p = {}
+  danmaku_top_slow_dis = {}
+  danmaku_top_fast_dis = {}
+  danmaku_top_slow_dis_list = []
+  danmaku_top_fast_dis_list = []
+
+  danmaku_bottom_slow_p = {}
+  danmaku_bottom_fast_p = {}
+  danmaku_bottom_slow_dis = {}
+  danmaku_bottom_fast_dis = {}
+  danmaku_bottom_slow_dis_list = []
+  danmaku_bottom_fast_dis_list = []
+
+  danmaku_right_slow_p = {}
+  danmaku_right_fast_p = {}
+  danmaku_right_slow_dis = {}
+  danmaku_right_fast_dis = {}
+  danmaku_right_slow_dis_list = []
+  danmaku_right_fast_dis_list = []
+
   for i in range(4):
     danmaku_top_p_name = f"danmaku_top_{i}_p"
-    danmaku_bottom_p_name = f"danmaku_bottom_{i}_p"
     danmaku_top_dis_name = f"danmaku_top_{i}_dis"
-    danmaku_bottom_dis_name = f"danmaku_bottom_{i}_dis"
-
     danmaku_top_slow_p[danmaku_top_p_name] = pg.Vector2(60,228)
     danmaku_top_fast_p[danmaku_top_p_name] = pg.Vector2(60,228)
-    danmaku_bottom_slow_p[danmaku_bottom_p_name] = pg.Vector2(253,420)
-    danmaku_bottom_fast_p[danmaku_bottom_p_name] = pg.Vector2(253,420)
-
     danmaku_top_slow_dis[danmaku_top_dis_name] = False
     danmaku_top_fast_dis[danmaku_top_dis_name] = False
-    danmaku_bottom_slow_dis[danmaku_bottom_dis_name] = False
-    danmaku_bottom_fast_dis[danmaku_bottom_dis_name] = False
-
     danmaku_top_slow_dis_list.append(danmaku_top_dis_name)
     danmaku_top_fast_dis_list.append(danmaku_top_dis_name)
+
+    danmaku_bottom_p_name = f"danmaku_bottom_{i}_p"
+    danmaku_bottom_dis_name = f"danmaku_bottom_{i}_dis"
+    danmaku_bottom_slow_p[danmaku_bottom_p_name] = pg.Vector2(253,420)
+    danmaku_bottom_fast_p[danmaku_bottom_p_name] = pg.Vector2(253,420)
+    danmaku_bottom_slow_dis[danmaku_bottom_dis_name] = False
+    danmaku_bottom_fast_dis[danmaku_bottom_dis_name] = False
     danmaku_bottom_slow_dis_list.append(danmaku_bottom_dis_name)
     danmaku_bottom_fast_dis_list.append(danmaku_bottom_dis_name)
     
+    danmaku_right_p_name = f"danmaku_right_{i}_p"
+    danmaku_right_dis_name = f"danmaku_right_{i}_dis"
+    danmaku_right_slow_p[danmaku_right_p_name] = pg.Vector2(443,228)
+    danmaku_right_fast_p[danmaku_right_p_name] = pg.Vector2(443,228)
+    danmaku_right_slow_dis[danmaku_right_dis_name] = False
+    danmaku_right_fast_dis[danmaku_right_dis_name] = False
+    danmaku_right_slow_dis_list.append(danmaku_right_dis_name)
+    danmaku_right_fast_dis_list.append(danmaku_right_dis_name)
 
     danmaku_slow_list.append(f"danmaku_slow_{i}")
     danmaku_fast_list.append(f"danmaku_fast_{i}")
@@ -200,14 +211,14 @@ def main():
 
     #弾幕の描画
     if frame%30 == 0:
-      random = r.randint(1,100)
+      random = r.randint(0,100)
       if random <= 25:
         danmaku_top = True
       elif random <= 50:
         danmaku_bottom = True
       elif random <= 75:
         danmaku_left = True
-      else:
+      elif random <= 100:
         danmaku_right = True
     
     if danmaku_top:
@@ -220,14 +231,14 @@ def main():
             danmaku_top_slow_dis[danmaku_top_slow_dis_list[i]] = True 
             danmaku_top = False
             break
-
       else:
-        if danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] == False:
-            danmaku_fast_list[i] = f"danmaku_fast_{frame}"
-            danmaku_fast[danmaku_fast_list[i]] = Danmaku('./danmaku_red.png',(24,24))
-            danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] = True 
-            danmaku_top = False
-            break
+        for i in range(4):
+          if danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] == False:
+              danmaku_fast_list[i] = f"danmaku_fast_{frame}"
+              danmaku_fast[danmaku_fast_list[i]] = Danmaku('./danmaku_red.png',(24,24))
+              danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] = True 
+              danmaku_top = False
+              break
 
 
     if danmaku_bottom:
@@ -249,6 +260,25 @@ def main():
             danmaku_bottom = False
             break
 
+    if danmaku_right:
+      random_right = r.randint(1,2)
+      if random_right == 1:
+        for i in range(4):
+          if danmaku_right_slow_dis[danmaku_right_slow_dis_list[i]] == False:
+            danmaku_slow_list[i] = f"danmaku_slow_{frame}"
+            danmaku_slow[danmaku_slow_list[i]] = Danmaku('./danmaku_yellow.png',(24,24))
+            danmaku_right_slow_dis[danmaku_right_slow_dis_list[i]] = True 
+            danmaku_right = False
+            break
+      else:
+        for i in range(4):
+          if danmaku_right_fast_dis[danmaku_right_fast_dis_list[i]] == False:
+            danmaku_fast_list[i] = f"danmaku_fast_{frame}"
+            danmaku_fast[danmaku_fast_list[i]] = Danmaku('./danmaku_red.png',(24,24))
+            danmaku_right_fast_dis[danmaku_right_fast_dis_list[i]] = True 
+            danmaku_right = False
+            break
+
     for i in range(4):
       if danmaku_top_slow_dis[danmaku_top_slow_dis_list[i]]:
         screen.blit(danmaku_slow[danmaku_slow_list[i]].display(),danmaku_top_slow_p[f"danmaku_top_{i}_p"])
@@ -264,11 +294,20 @@ def main():
         screen.blit(danmaku_fast[danmaku_fast_list[i]].display(),danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"])
         danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"] = danmaku_fast[danmaku_fast_list[i]].shot(0,speed*2,danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"])
 
+      if danmaku_right_slow_dis[danmaku_right_slow_dis_list[i]]:
+        screen.blit(danmaku_slow[danmaku_slow_list[i]].display(),danmaku_right_slow_p[f"danmaku_right_{i}_p"])
+        danmaku_right_slow_p[f"danmaku_right_{i}_p"] = danmaku_slow[danmaku_slow_list[i]].shot(3,speed,danmaku_right_slow_p[f"danmaku_right_{i}_p"])
+      if danmaku_right_fast_dis[danmaku_right_fast_dis_list[i]]:
+        screen.blit(danmaku_fast[danmaku_fast_list[i]].display(),danmaku_right_fast_p[f"danmaku_right_{i}_p"])
+        danmaku_right_fast_p[f"danmaku_right_{i}_p"] = danmaku_fast[danmaku_fast_list[i]].shot(3,speed*2,danmaku_right_fast_p[f"danmaku_right_{i}_p"])
+
       
     random_str = f'{random:03}'
     screen.blit(font.render(random_str,True,'BLACK'),(10,50))
     if danmaku_top:
       screen.blit(font.render("True",True,'BLACK'),(10,70))
+    if danmaku_bottom:
+      screen.blit(font.render("True",True,'BLACK'),(10,90))
     
     
     # 画面の更新と同期
