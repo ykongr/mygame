@@ -107,6 +107,12 @@ def main():
   danmaku_top_fast_dis = {}
   danmaku_bottom_slow_dis = {}
   danmaku_bottom_fast_dis = {}
+  danmaku_top_slow_dis_list = []
+  danmaku_top_fast_dis_list = []
+  danmaku_bottom_slow_dis_list = []
+  danmaku_bottom_fast_dis_list = []
+  danmaku_slow_list = []
+  danmaku_fast_list = []
 
   for i in range(4):
     danmaku_top_p_name = f"danmaku_top_{i}_p"
@@ -123,6 +129,15 @@ def main():
     danmaku_top_fast_dis[danmaku_top_dis_name] = False
     danmaku_bottom_slow_dis[danmaku_bottom_dis_name] = False
     danmaku_bottom_fast_dis[danmaku_bottom_dis_name] = False
+
+    danmaku_top_slow_dis_list.append(danmaku_top_dis_name)
+    danmaku_top_fast_dis_list.append(danmaku_top_dis_name)
+    danmaku_bottom_slow_dis_list.append(danmaku_bottom_dis_name)
+    danmaku_bottom_fast_dis_list.append(danmaku_bottom_dis_name)
+    
+
+    danmaku_slow_list.append(f"danmaku_slow_{i}")
+    danmaku_fast_list.append(f"danmaku_fast_{i}")
 
   # ゲームループ
   while not exit_flag:
@@ -198,125 +213,57 @@ def main():
     if danmaku_top:
       random_top = r.randint(1,2)
       if random_top == 1:
-        if danmaku_top_slow_dis["danmaku_top_1_dis"] == False:
-          danmaku_slow_1_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_1_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_top_slow_dis["danmaku_top_1_dis"] = True 
-          danmaku_top = False
-        elif danmaku_top_slow_dis["danmaku_top_2_dis"] == False: 
-          danmaku_slow_2_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_2_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_top_slow_dis["danmaku_top_2_dis"] = True 
-          danmaku_top = False
-        elif danmaku_top_slow_dis["danmaku_top_3_dis"] == False: 
-          danmaku_slow_3_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_3_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_top_slow_dis["danmaku_top_3_dis"] = True 
-          danmaku_top = False
+        for i in range(4):
+          if danmaku_top_slow_dis[danmaku_top_slow_dis_list[i]] == False:
+            danmaku_slow_list[i] = f"danmaku_slow_{frame}"
+            danmaku_slow[danmaku_slow_list[i]] = Danmaku('./danmaku_yellow.png',(24,24))
+            danmaku_top_slow_dis[danmaku_top_slow_dis_list[i]] = True 
+            danmaku_top = False
+            break
 
       else:
-        if danmaku_top_fast_dis["danmaku_top_1_dis"] == False:
-          danmaku_fast_1_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_1_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_top_fast_dis["danmaku_top_1_dis"] = True 
-          danmaku_top = False
-        elif danmaku_top_fast_dis["danmaku_top_2_dis"] == False:
-          danmaku_fast_2_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_2_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_top_fast_dis["danmaku_top_2_dis"] = True 
-          danmaku_top = False
-        elif danmaku_top_fast_dis["danmaku_top_3_dis"] == False:
-          danmaku_fast_3_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_3_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_top_fast_dis["danmaku_top_3_dis"] = True 
-          danmaku_top = False
+        if danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] == False:
+            danmaku_fast_list[i] = f"danmaku_fast_{frame}"
+            danmaku_fast[danmaku_fast_list[i]] = Danmaku('./danmaku_red.png',(24,24))
+            danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]] = True 
+            danmaku_top = False
+            break
 
 
     if danmaku_bottom:
       random_bottom = r.randint(1,2)
       if random_bottom == 1:
-        if danmaku_bottom_slow_dis["danmaku_bottom_1_dis"] == False:
-          danmaku_slow_1_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_1_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_bottom_slow_dis["danmaku_bottom_1_dis"] = True 
-          danmaku_bottom = False
-        elif danmaku_bottom_slow_dis["danmaku_bottom_2_dis"] == False: 
-          danmaku_slow_2_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_2_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_bottom_slow_dis["danmaku_top_2_dis"] = True 
-          danmaku_bottom = False
-        elif danmaku_bottom_slow_dis["danmaku_bottom_3_dis"] == False: 
-          danmaku_slow_3_name = f"danmaku_slow_{frame}"
-          danmaku_slow[danmaku_slow_3_name] = Danmaku('./danmaku_yellow.png',(24,24))
-          danmaku_bottom_slow_dis["danmaku_bottom_3_dis"] = True 
-          danmaku_bottom = False
-
+        for i in range(4):
+          if danmaku_bottom_slow_dis[danmaku_bottom_slow_dis_list[i]] == False:
+            danmaku_slow_list[i] = f"danmaku_slow_{frame}"
+            danmaku_slow[danmaku_slow_list[i]] = Danmaku('./danmaku_yellow.png',(24,24))
+            danmaku_bottom_slow_dis[danmaku_bottom_slow_dis_list[i]] = True 
+            danmaku_bottom = False
+            break
       else:
-        if danmaku_bottom_fast_dis["danmaku_bottom_1_dis"] == False:
-          danmaku_fast_1_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_1_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_bottom_fast_dis["danmaku_bottom_1_dis"] = True 
-          danmaku_bottom = False
-        elif danmaku_bottom_fast_dis["danmaku_bottom_2_dis"] == False:
-          danmaku_fast_2_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_2_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_bottom_fast_dis["danmaku_bottom_2_dis"] = True 
-          danmaku_bottom = False
-        elif danmaku_bottom_fast_dis["danmaku_top_3_dis"] == False:
-          danmaku_fast_3_name = f"danmaku_fast_{frame}"
-          danmaku_fast[danmaku_fast_3_name] = Danmaku('./danmaku_red.png',(24,24))
-          danmaku_bottom_fast_dis["danmaku_bottom_3_dis"] = True 
-          danmaku_bottom = False
+        for i in range(4):
+          if danmaku_bottom_fast_dis[danmaku_bottom_fast_dis_list[i]] == False:
+            danmaku_fast_list[i] = f"danmaku_fast_{frame}"
+            danmaku_fast[danmaku_fast_list[i]] = Danmaku('./danmaku_red.png',(24,24))
+            danmaku_bottom_fast_dis[danmaku_bottom_fast_dis_list[i]] = True 
+            danmaku_bottom = False
+            break
 
-    if danmaku_top_slow_dis["danmaku_top_1_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_1_name].display(),danmaku_top_slow_p["danmaku_top_1_p"])
-      danmaku_top_slow_p["danmaku_top_1_p"] = danmaku_slow[danmaku_slow_1_name].shot(1,speed,danmaku_top_slow_p["danmaku_top_1_p"])
+    for i in range(4):
+      if danmaku_top_slow_dis[danmaku_top_slow_dis_list[i]]:
+        screen.blit(danmaku_slow[danmaku_slow_list[i]].display(),danmaku_top_slow_p[f"danmaku_top_{i}_p"])
+        danmaku_top_slow_p[f"danmaku_top_{i}_p"] = danmaku_slow[danmaku_slow_list[i]].shot(1,speed,danmaku_top_slow_p[f"danmaku_top_{i}_p"])
+      if danmaku_top_fast_dis[danmaku_top_fast_dis_list[i]]:
+        screen.blit(danmaku_fast[danmaku_fast_list[i]].display(),danmaku_top_fast_p[f"danmaku_top_{i}_p"])
+        danmaku_top_fast_p[f"danmaku_top_{i}_p"] = danmaku_fast[danmaku_fast_list[i]].shot(1,speed*2,danmaku_top_fast_p[f"danmaku_top_{i}_p"])
 
-    if danmaku_top_slow_dis["danmaku_top_2_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_2_name].display(),danmaku_top_slow_p["danmaku_top_2_p"])
-      danmaku_top_slow_p["danmaku_top_2_p"] = danmaku_slow[danmaku_slow_2_name].shot(1,speed,danmaku_top_slow_p["danmaku_top_2_p"])
+      if danmaku_bottom_slow_dis[danmaku_bottom_slow_dis_list[i]]:
+        screen.blit(danmaku_slow[danmaku_slow_list[i]].display(),danmaku_bottom_slow_p[f"danmaku_bottom_{i}_p"])
+        danmaku_bottom_slow_p[f"danmaku_bottom_{i}_p"] = danmaku_slow[danmaku_slow_list[i]].shot(0,speed,danmaku_bottom_slow_p[f"danmaku_bottom_{i}_p"])
+      if danmaku_bottom_fast_dis[danmaku_bottom_fast_dis_list[i]]:
+        screen.blit(danmaku_fast[danmaku_fast_list[i]].display(),danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"])
+        danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"] = danmaku_fast[danmaku_fast_list[i]].shot(0,speed*2,danmaku_bottom_fast_p[f"danmaku_bottom_{i}_p"])
 
-    if danmaku_top_slow_dis["danmaku_top_3_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_3_name].display(),danmaku_top_slow_p["danmaku_top_3_p"])
-      danmaku_top_slow_p["danmaku_top_3_p"] = danmaku_slow[danmaku_slow_3_name].shot(1,speed,danmaku_top_slow_p["danmaku_top_3_p"])
-
-    if danmaku_top_fast_dis["danmaku_top_1_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_1_name].display(),danmaku_top_fast_p["danmaku_top_1_p"])
-      danmaku_top_fast_p["danmaku_top_1_p"] = danmaku_fast[danmaku_fast_1_name].shot(1,speed*2,danmaku_top_fast_p["danmaku_top_1_p"])
-
-    if danmaku_top_fast_dis["danmaku_top_2_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_2_name].display(),danmaku_top_fast_p["danmaku_top_2_p"])
-      danmaku_top_fast_p["danmaku_top_2_p"] = danmaku_fast[danmaku_fast_2_name].shot(1,speed*2,danmaku_top_fast_p["danmaku_top_2_p"])
-
-    if danmaku_top_fast_dis["danmaku_top_3_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_3_name].display(),danmaku_top_fast_p["danmaku_top_3_p"])
-      danmaku_top_fast_p["danmaku_top_3_p"] = danmaku_fast[danmaku_fast_3_name].shot(1,speed*2,danmaku_top_fast_p["danmaku_top_3_p"])
-
-
-    if danmaku_bottom_slow_dis["danmaku_bottom_1_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_1_name].display(),danmaku_bottom_slow_p["danmaku_bottom_1_p"])
-      danmaku_bottom_slow_p["danmaku_bottom_1_p"] = danmaku_slow[danmaku_slow_1_name].shot(0,speed,danmaku_bottom_slow_p["danmaku_bottom_1_p"])
-
-    if danmaku_bottom_slow_dis["danmaku_bottom_2_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_2_name].display(),danmaku_bottom_slow_p["danmaku_bottom_2_p"])
-      danmaku_bottom_slow_p["danmaku_bottom_2_p"] = danmaku_slow[danmaku_slow_2_name].shot(0,speed,danmaku_bottom_slow_p["danmaku_bottom_2_p"])
-
-    if danmaku_bottom_slow_dis["danmaku_bottom_3_dis"]:
-      screen.blit(danmaku_slow[danmaku_slow_3_name].display(),danmaku_bottom_slow_p["danmaku_bottom_3_p"])
-      danmaku_bottom_slow_p["danmaku_bottom__3_p"] = danmaku_slow[danmaku_slow_3_name].shot(0,speed,danmaku_bottom_slow_p["danmaku_bottom_3_p"])
-
-
-    if danmaku_bottom_fast_dis["danmaku_bottom_1_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_1_name].display(),danmaku_bottom_fast_p["danmaku_bottom_1_p"])
-      danmaku_bottom_fast_p["danmaku_bottom_1_p"] = danmaku_fast[danmaku_fast_1_name].shot(0,speed*2,danmaku_bottom_fast_p["danmaku_bottom_1_p"])
-
-    if danmaku_bottom_fast_dis["danmaku_bottom_2_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_2_name].display(),danmaku_bottom_fast_p["danmaku_bottom_2_p"])
-      danmaku_bottom_fast_p["danmaku_bottom_2_p"] = danmaku_fast[danmaku_fast_2_name].shot(0,speed*2,danmaku_bottom_fast_p["danmaku_bottom_2_p"])
-
-    if danmaku_bottom_fast_dis["danmaku_bottom_3_dis"]:
-      screen.blit(danmaku_fast[danmaku_fast_3_name].display(),danmaku_bottom_fast_p["danmaku_bottom_3_p"])
-      danmaku_bottom_fast_p["danmaku_bottom_3_p"] = danmaku_fast[danmaku_fast_3_name].shot(0,speed*2,danmaku_bottom_fast_p["danmaku_bottom_3_p"])
       
     random_str = f'{random:03}'
     screen.blit(font.render(random_str,True,'BLACK'),(10,50))
