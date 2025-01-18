@@ -35,7 +35,7 @@ def main():
   disp_h = int(chip_s*map_s.y)
   screen = pg.display.set_mode((disp_w,disp_h))
   clock  = pg.time.Clock()
-  font   = pg.font.Font(None,15)
+  font   = pg.font.Font(None,24)
   frame  = 0
   cmd_move = 2
   exit_flag = False
@@ -45,6 +45,7 @@ def main():
   snail = False
   snailcount = 0
   attack = False
+  score = 0
 
   # グリッド設定
   grid_c = '#bbbbbb'
@@ -235,9 +236,17 @@ def main():
           else:
             snail = True
 
+    score += 50
+
     # 能力と背景の処理
     if snail:
       screen.fill(pg.Color('#7d7d7d'))
+      for x in range(0, disp_w, chip_s): # 縦線
+        pg.draw.line(screen,grid_c,(x,0),(x,disp_h))
+      for y in range(0, disp_h, chip_s): # 横線
+        pg.draw.line(screen,grid_c,(0,y),(disp_w,y))
+      screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'WHITE'),(10,100))
+      screen.blit(font.render(f'Score {score:09}',True,'WHITE'),(10,40))
       speed = 0.5
       if frame >= 300:
         speed = 0.75
@@ -249,17 +258,17 @@ def main():
         snail = False
     else:
       screen.fill(pg.Color('WHITE'))
+      for x in range(0, disp_w, chip_s): # 縦線
+        pg.draw.line(screen,grid_c,(x,0),(x,disp_h))
+      for y in range(0, disp_h, chip_s): # 横線
+        pg.draw.line(screen,grid_c,(0,y),(disp_w,y))
+      screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'BLACK'),(10,100))
+      screen.blit(font.render(f'Score {score:09}',True,'BLACK'),(10,40))
       speed = 2
       if frame >= 300:
         speed = 3
       snailcount += 1
       frame += 4
-
-    # グリッド
-    for x in range(0, disp_w, chip_s): # 縦線
-      pg.draw.line(screen,grid_c,(x,0),(x,disp_h))
-    for y in range(0, disp_h, chip_s): # 横線
-      pg.draw.line(screen,grid_c,(0,y),(disp_w,y))
 
       # 自キャラの画像読込み    
     sakuya_s = pg.Vector2(48,64) # 画面に出力する自キャラサイズ 48x64
@@ -300,12 +309,6 @@ def main():
     else:
       if frame % 40 == 0:
         attack = True
-    # フレームカウンタの描画
-    frm_str = f'{frame:05}'
-    cmd_move_str = f'{cmd_move:02}'
-    screen.blit(font.render(frm_str,True,'BLACK'),(10,10))
-    screen.blit(font.render(cmd_move_str,True,'BLACK'),(10,30))
-    screen.blit(font.render(f'{snailcount:03}',True,'BLACK'),(10,50))
 
     #弾幕の描画
     if attack:
@@ -485,12 +488,14 @@ def main():
               danmaku_top_slow_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
+              score += 4000
 
             if knife_top_p[f"knife_top_{i}_p"].distance_to(danmaku_top_fast_p[f"danmaku_top_{j}_p"]) < speed*1.5:
               danmaku_top_fast_dis[danmaku_top_fast_dis_list[j]] = False
               danmaku_top_fast_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
+              score += 8000
             
             if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_slow_p[f"danmaku_right_{j}_p"]) < speed*1.5: 
               danmaku_right_slow_dis[danmaku_right_slow_dis_list[j]] = False
