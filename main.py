@@ -37,11 +37,12 @@ def main():
   clock  = pg.time.Clock()
   font   = pg.font.Font(None,24)
   font_key = pg.font.Font(None,36)
-  font_finish = pg.font.Font(None,48)
+  font_score = pg.font.Font(None,48)
   setting = True
   exit_flag = False
   exit_code = '000'
   roop = 5
+  highscore = 0
 
   # グリッド設定
   grid_c = '#bbbbbb'
@@ -139,7 +140,7 @@ def main():
   
   while exit_code == '000':
       screen.fill(pg.Color('WHITE'))
-      screen.blit(font_finish.render("Game Start",True,'BLACK'),(165,200))
+      screen.blit(font_score.render("Game Start",True,'BLACK'),(165,200))
       screen.blit(font_key.render("[SPACE]",True,'BLACK'),(205,300))
       pg.display.update()
       for event in pg.event.get():
@@ -268,7 +269,8 @@ def main():
       for y in range(0, disp_h, chip_s): # 横線
         pg.draw.line(screen,grid_c,(0,y),(disp_w,y))
       screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'WHITE'),(10,100))
-      screen.blit(font.render(f'Score {score:09}',True,'WHITE'),(10,40))
+      screen.blit(font.render(f'    Score {score:09}',True,'WHITE'),(11,40))
+      screen.blit(font.render(f'HiScore {highscore:09}',True,'WHITE'),(10,20))
       speed = 0.5
       if frame >= 6000:
         speed = 0.75
@@ -285,7 +287,8 @@ def main():
       for y in range(0, disp_h, chip_s): # 横線
         pg.draw.line(screen,grid_c,(0,y),(disp_w,y))
       screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'BLACK'),(10,100))
-      screen.blit(font.render(f'Score {score:09}',True,'BLACK'),(10,40))
+      screen.blit(font.render(f'    Score {score:09}',True,'BLACK'),(11,40))
+      screen.blit(font.render(f'HiScore {highscore:09}',True,'BLACK'),(10,20))
       speed = 2
       if frame >= 6000:
         speed = 3
@@ -577,13 +580,15 @@ def main():
               knife_left_p[f"knife_left_{i}_p"] = knife_start[3]
               score += 8000
 
-      screen.blit(font.render("True",exit_flag,'BLACK'),(10,10))
     
 
     while exit_code == '002':
       screen.fill(pg.Color('WHITE'))
-      screen.blit(font_finish.render(f"Score {score}",True,'BLACK'),(170,200))
-      screen.blit(font_key.render("Retry     [SPACE]",True,'BLACK'),(170,270))
+      screen.blit(font_score.render(f"Score {score}",True,'BLACK'),(175,200))
+      if score > highscore:
+        highscore = score
+      screen.blit(font_score.render(f"HiScore {highscore}",True,'BLACK'),(140,160))
+      screen.blit(font_key.render("Retry     [SPACE]",True,'BLACK'),(170,320))
       pg.display.update()
       for event in pg.event.get():
         if event.type == pg.QUIT:
