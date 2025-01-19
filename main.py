@@ -36,16 +36,12 @@ def main():
   screen = pg.display.set_mode((disp_w,disp_h))
   clock  = pg.time.Clock()
   font   = pg.font.Font(None,24)
-  frame  = 0
-  cmd_move = 2
+  font_key = pg.font.Font(None,36)
+  font_finish = pg.font.Font(None,48)
+  setting = True
   exit_flag = False
   exit_code = '000'
-  knifeshot = False
   roop = 5
-  snail = False
-  snailcount = 0
-  attack = False
-  score = 0
 
   # グリッド設定
   grid_c = '#bbbbbb'
@@ -86,8 +82,8 @@ def main():
   danmaku_left = False
   danmaku_right = False
   speed = 2
-  danmaku_start = [pg.Vector2(253,30),pg.Vector2(253,450),pg.Vector2(454,228),pg.Vector2(60,228)]
-  knife_start = [pg.Vector2(253,180),pg.Vector2(253,244),pg.Vector2(260,228),pg.Vector2(220,228)]
+  danmaku_start = [pg.Vector2(253,30),pg.Vector2(253,450),pg.Vector2(454,228),pg.Vector2(50,228)]
+  knife_start = [pg.Vector2(253,185),pg.Vector2(253,239),pg.Vector2(255,228),pg.Vector2(215,228)]
   danmaku_slow = {}
   danmaku_fast = {}
   danmaku_slow_list = []
@@ -141,73 +137,84 @@ def main():
   knife_left_dis = {}
   knife_left_dis_list = []
   
-  for i in range(roop):
-    danmaku_top_p_name = f"danmaku_top_{i}_p"
-    danmaku_top_dis_name = f"danmaku_top_{i}_dis"
-    danmaku_top_slow_p[danmaku_top_p_name] = danmaku_start[0]
-    danmaku_top_fast_p[danmaku_top_p_name] = danmaku_start[0]
-    danmaku_top_slow_dis[danmaku_top_dis_name] = False
-    danmaku_top_fast_dis[danmaku_top_dis_name] = False
-    danmaku_top_slow_dis_list.append(danmaku_top_dis_name)
-    danmaku_top_fast_dis_list.append(danmaku_top_dis_name)
-
-    danmaku_bottom_p_name = f"danmaku_bottom_{i}_p"
-    danmaku_bottom_dis_name = f"danmaku_bottom_{i}_dis"
-    danmaku_bottom_slow_p[danmaku_bottom_p_name] = danmaku_start[1]
-    danmaku_bottom_fast_p[danmaku_bottom_p_name] = danmaku_start[1]
-    danmaku_bottom_slow_dis[danmaku_bottom_dis_name] = False
-    danmaku_bottom_fast_dis[danmaku_bottom_dis_name] = False
-    danmaku_bottom_slow_dis_list.append(danmaku_bottom_dis_name)
-    danmaku_bottom_fast_dis_list.append(danmaku_bottom_dis_name)
-    
-    danmaku_right_p_name = f"danmaku_right_{i}_p"
-    danmaku_right_dis_name = f"danmaku_right_{i}_dis"
-    danmaku_right_slow_p[danmaku_right_p_name] = danmaku_start[2]
-    danmaku_right_fast_p[danmaku_right_p_name] = danmaku_start[2]
-    danmaku_right_slow_dis[danmaku_right_dis_name] = False
-    danmaku_right_fast_dis[danmaku_right_dis_name] = False
-    danmaku_right_slow_dis_list.append(danmaku_right_dis_name)
-    danmaku_right_fast_dis_list.append(danmaku_right_dis_name)
-
-    danmaku_left_p_name = f"danmaku_left_{i}_p"
-    danmaku_left_dis_name = f"danmaku_left_{i}_dis"
-    danmaku_left_slow_p[danmaku_left_p_name] = danmaku_start[3]
-    danmaku_left_fast_p[danmaku_left_p_name] = danmaku_start[3]
-    danmaku_left_slow_dis[danmaku_left_dis_name] = False
-    danmaku_left_fast_dis[danmaku_left_dis_name] = False
-    danmaku_left_slow_dis_list.append(danmaku_left_dis_name)
-    danmaku_left_fast_dis_list.append(danmaku_left_dis_name)
-
-    knife_top_p_name = f"knife_top_{i}_p"
-    knife_top_dis_name = f"knife_top_{i}_dis"
-    knife_top_p[knife_top_p_name] = knife_start[0]
-    knife_top_dis[knife_top_dis_name] = False
-    knife_top_dis_list.append(knife_top_dis_name)
-
-    knife_bottom_p_name = f"knife_bottom_{i}_p"
-    knife_bottom_dis_name = f"knife_bottom_{i}_dis"
-    knife_bottom_p[knife_bottom_p_name] = knife_start[1]
-    knife_bottom_dis[knife_bottom_dis_name] = False
-    knife_bottom_dis_list.append(knife_bottom_dis_name)
-    
-    knife_right_p_name = f"knife_right_{i}_p"
-    knife_right_dis_name = f"knife_right_{i}_dis"
-    knife_right_p[knife_right_p_name] = knife_start[2]
-    knife_right_dis[knife_right_dis_name] = False
-    knife_right_dis_list.append(knife_right_dis_name)
-
-    knife_left_p_name = f"knife_left_{i}_p"
-    knife_left_dis_name = f"knife_left_{i}_dis"
-    knife_left_p[knife_left_p_name] = knife_start[3]
-    knife_left_dis[knife_left_dis_name] = False
-    knife_left_dis_list.append(knife_left_dis_name)
-
-    danmaku_slow_list.append(f"danmaku_slow_{i}")
-    danmaku_fast_list.append(f"danmaku_fast_{i}")
-    knife_list.append(f"knife_{i}")
 
   # ゲームループ
   while not exit_flag:
+
+    if setting:
+      for i in range(roop):
+        danmaku_top_p_name = f"danmaku_top_{i}_p"
+        danmaku_top_dis_name = f"danmaku_top_{i}_dis"
+        danmaku_top_slow_p[danmaku_top_p_name] = danmaku_start[0]
+        danmaku_top_fast_p[danmaku_top_p_name] = danmaku_start[0]
+        danmaku_top_slow_dis[danmaku_top_dis_name] = False
+        danmaku_top_fast_dis[danmaku_top_dis_name] = False
+        danmaku_top_slow_dis_list.append(danmaku_top_dis_name)
+        danmaku_top_fast_dis_list.append(danmaku_top_dis_name)
+
+        danmaku_bottom_p_name = f"danmaku_bottom_{i}_p"
+        danmaku_bottom_dis_name = f"danmaku_bottom_{i}_dis"
+        danmaku_bottom_slow_p[danmaku_bottom_p_name] = danmaku_start[1]
+        danmaku_bottom_fast_p[danmaku_bottom_p_name] = danmaku_start[1]
+        danmaku_bottom_slow_dis[danmaku_bottom_dis_name] = False
+        danmaku_bottom_fast_dis[danmaku_bottom_dis_name] = False
+        danmaku_bottom_slow_dis_list.append(danmaku_bottom_dis_name)
+        danmaku_bottom_fast_dis_list.append(danmaku_bottom_dis_name)
+        
+        danmaku_right_p_name = f"danmaku_right_{i}_p"
+        danmaku_right_dis_name = f"danmaku_right_{i}_dis"
+        danmaku_right_slow_p[danmaku_right_p_name] = danmaku_start[2]
+        danmaku_right_fast_p[danmaku_right_p_name] = danmaku_start[2]
+        danmaku_right_slow_dis[danmaku_right_dis_name] = False
+        danmaku_right_fast_dis[danmaku_right_dis_name] = False
+        danmaku_right_slow_dis_list.append(danmaku_right_dis_name)
+        danmaku_right_fast_dis_list.append(danmaku_right_dis_name)
+
+        danmaku_left_p_name = f"danmaku_left_{i}_p"
+        danmaku_left_dis_name = f"danmaku_left_{i}_dis"
+        danmaku_left_slow_p[danmaku_left_p_name] = danmaku_start[3]
+        danmaku_left_fast_p[danmaku_left_p_name] = danmaku_start[3]
+        danmaku_left_slow_dis[danmaku_left_dis_name] = False
+        danmaku_left_fast_dis[danmaku_left_dis_name] = False
+        danmaku_left_slow_dis_list.append(danmaku_left_dis_name)
+        danmaku_left_fast_dis_list.append(danmaku_left_dis_name)
+
+        knife_top_p_name = f"knife_top_{i}_p"
+        knife_top_dis_name = f"knife_top_{i}_dis"
+        knife_top_p[knife_top_p_name] = knife_start[0]
+        knife_top_dis[knife_top_dis_name] = False
+        knife_top_dis_list.append(knife_top_dis_name)
+
+        knife_bottom_p_name = f"knife_bottom_{i}_p"
+        knife_bottom_dis_name = f"knife_bottom_{i}_dis"
+        knife_bottom_p[knife_bottom_p_name] = knife_start[1]
+        knife_bottom_dis[knife_bottom_dis_name] = False
+        knife_bottom_dis_list.append(knife_bottom_dis_name)
+        
+        knife_right_p_name = f"knife_right_{i}_p"
+        knife_right_dis_name = f"knife_right_{i}_dis"
+        knife_right_p[knife_right_p_name] = knife_start[2]
+        knife_right_dis[knife_right_dis_name] = False
+        knife_right_dis_list.append(knife_right_dis_name)
+
+        knife_left_p_name = f"knife_left_{i}_p"
+        knife_left_dis_name = f"knife_left_{i}_dis"
+        knife_left_p[knife_left_p_name] = knife_start[3]
+        knife_left_dis[knife_left_dis_name] = False
+        knife_left_dis_list.append(knife_left_dis_name)
+
+        danmaku_slow_list.append(f"danmaku_slow_{i}")
+        danmaku_fast_list.append(f"danmaku_fast_{i}")
+        knife_list.append(f"knife_{i}")
+      
+      frame  = 0
+      cmd_move = 2
+      knifeshot = False
+      snail = False
+      snailcount = 0
+      attack = False
+      score = 0
+      setting = False
 
     # システムイベントの検出
     for event in pg.event.get():
@@ -248,9 +255,9 @@ def main():
       screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'WHITE'),(10,100))
       screen.blit(font.render(f'Score {score:09}',True,'WHITE'),(10,40))
       speed = 0.5
-      if frame >= 300:
+      if frame >= 6000:
         speed = 0.75
-      snailcount -= 2
+      snailcount -= 3
       frame += 1
       if snailcount <= 0:
         while frame % 4 != 0:
@@ -265,7 +272,7 @@ def main():
       screen.blit(font.render(f'Snail Meter {snailcount:05}',True,'BLACK'),(10,100))
       screen.blit(font.render(f'Score {score:09}',True,'BLACK'),(10,40))
       speed = 2
-      if frame >= 300:
+      if frame >= 6000:
         speed = 3
       snailcount += 1
       frame += 4
@@ -300,10 +307,10 @@ def main():
     if frame <= 2000:
       if frame % 120 == 0:
         attack = True
-    elif frame <= 8000:
+    elif frame <= 4000:
       if frame % 80 == 0:
         attack = True
-    elif frame <= 16000:
+    elif frame <= 8000:
       if frame % 60 == 0:
         attack = True
     else:
@@ -487,6 +494,8 @@ def main():
               danmaku_top_slow_dis[danmaku_top_slow_dis_list[j]] = False
               danmaku_top_slow_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
+              if knife_top_p[f"knife_top_{i}_p"] == knife_start[0]:
+                exit_code = '002'
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
               score += 4000
 
@@ -494,6 +503,8 @@ def main():
               danmaku_top_fast_dis[danmaku_top_fast_dis_list[j]] = False
               danmaku_top_fast_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
+              if knife_top_p[f"knife_top_{i}_p"] == knife_start[0]:
+                exit_code = '002'
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
               score += 8000
             
@@ -501,41 +512,67 @@ def main():
               danmaku_right_slow_dis[danmaku_right_slow_dis_list[j]] = False
               danmaku_right_slow_p[f"danmaku_right_{j}_p"] = danmaku_start[2]
               knife_right_dis[knife_right_dis_list[i]] = False
+              if knife_right_p[f"knife_right_{i}_p"] == knife_start[2]:
+                exit_code = '002'
               knife_right_p[f"knife_right_{i}_p"] = knife_start[2]
 
             if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_fast_p[f"danmaku_right_{j}_p"]) < speed*1.5:
               danmaku_right_fast_dis[danmaku_right_fast_dis_list[j]] = False
               danmaku_right_fast_p[f"danmaku_right_{j}_p"] = danmaku_start[2]
               knife_right_dis[knife_right_dis_list[i]] = False
+              if knife_right_p[f"knife_right_{i}_p"] == knife_start[2]:
+                exit_code = '002'
               knife_right_p[f"knife_right_{i}_p"] = knife_start[2]
             
             if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_slow_p[f"danmaku_bottom_{j}_p"]) < speed*1.5: 
               danmaku_bottom_slow_dis[danmaku_bottom_slow_dis_list[j]] = False
               danmaku_bottom_slow_p[f"danmaku_bottom_{j}_p"] = danmaku_start[1]
               knife_bottom_dis[knife_bottom_dis_list[i]] = False
+              if knife_bottom_p[f"knife_bottom_{i}_p"] == knife_start[1]:
+                exit_code = '002'
               knife_bottom_p[f"knife_bottom_{i}_p"] = knife_start[1]
 
             if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_fast_p[f"danmaku_bottom_{j}_p"]) < speed*1.5:
               danmaku_bottom_fast_dis[danmaku_bottom_fast_dis_list[j]] = False
               danmaku_bottom_fast_p[f"danmaku_bottom_{j}_p"] = danmaku_start[1]
               knife_bottom_dis[knife_bottom_dis_list[i]] = False
+              if knife_bottom_p[f"knife_bottom_{i}_p"] == knife_start[1]:
+                exit_code = '002'
               knife_bottom_p[f"knife_bottom_{i}_p"] = knife_start[1]
 
             if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_slow_p[f"danmaku_left_{j}_p"]) < speed*1.5: 
               danmaku_left_slow_dis[danmaku_left_slow_dis_list[j]] = False
               danmaku_left_slow_p[f"danmaku_left_{j}_p"] = danmaku_start[3]
               knife_left_dis[knife_left_dis_list[i]] = False
+              if knife_left_p[f"knife_left_{i}_p"] == knife_start[3]:
+                exit_code = '002'
               knife_left_p[f"knife_left_{i}_p"] = knife_start[3]
 
             if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_fast_p[f"danmaku_left_{j}_p"]) < speed*1.5:
               danmaku_left_fast_dis[danmaku_left_fast_dis_list[j]] = False
               danmaku_left_fast_p[f"danmaku_left_{j}_p"] = danmaku_start[3]
               knife_left_dis[knife_left_dis_list[i]] = False
+              if knife_left_p[f"knife_left_{i}_p"] == knife_start[3]:
+                exit_code = '002'
               knife_left_p[f"knife_left_{i}_p"] = knife_start[3]
 
+      screen.blit(font.render("True",exit_flag,'BLACK'),(10,10))
+    
 
-
-      
+    while exit_code == '002':
+      screen.fill(pg.Color('WHITE'))
+      screen.blit(font_finish.render(f"Score {score}",True,'BLACK'),(170,200))
+      screen.blit(font_key.render("Retry      SPACEkey",True,'BLACK'),(160,270))
+      pg.display.update()
+      for event in pg.event.get():
+        if event.type == pg.QUIT:
+          exit_flag = True
+          exit_code = '001'
+        if event.type == pg.KEYDOWN:
+          if event.key == pg.K_SPACE:
+            exit_flag = False
+            exit_code = '000'
+            setting = True
     
     
     # 画面の更新と同期
