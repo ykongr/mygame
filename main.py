@@ -30,7 +30,7 @@ def main():
   map_s  = pg.Vector2(11,11) # マップの横・縦の配置数 
 
   pg.init() 
-  pg.display.set_caption('ぼくのかんがえたさいきょうのげーむ II')
+  pg.display.set_caption('咲夜の妖精討伐')
   disp_w = int(chip_s*map_s.x)
   disp_h = int(chip_s*map_s.y)
   screen = pg.display.set_mode((disp_w,disp_h))
