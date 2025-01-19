@@ -83,7 +83,7 @@ def main():
   danmaku_right = False
   speed = 2
   danmaku_start = [pg.Vector2(253,30),pg.Vector2(253,450),pg.Vector2(454,228),pg.Vector2(50,228)]
-  knife_start = [pg.Vector2(253,185),pg.Vector2(253,239),pg.Vector2(255,228),pg.Vector2(215,228)]
+  knife_start = [pg.Vector2(253,185),pg.Vector2(253,239),pg.Vector2(255,228),pg.Vector2(240,228)]
   danmaku_slow = {}
   danmaku_fast = {}
   danmaku_slow_list = []
@@ -137,6 +137,21 @@ def main():
   knife_left_dis = {}
   knife_left_dis_list = []
   
+  while exit_code == '000':
+      screen.fill(pg.Color('WHITE'))
+      screen.blit(font_finish.render("Game Start",True,'BLACK'),(165,200))
+      screen.blit(font_key.render("[SPACE]",True,'BLACK'),(205,300))
+      pg.display.update()
+      for event in pg.event.get():
+        if event.type == pg.QUIT:
+          exit_flag = True
+          exit_code = '003'
+        if event.type == pg.KEYDOWN:
+          if event.key == pg.K_SPACE:
+            exit_flag = False
+            exit_code = '001'
+            setting = True
+    
 
   # ゲームループ
   while not exit_flag:
@@ -490,7 +505,7 @@ def main():
           knife_left_p[f"knife_left_{i}_p"] =  knife[knife_list[i]].shot(3,speed,knife_left_p[f"knife_left_{i}_p"])
 
         for j in range(roop):
-            if knife_top_p[f"knife_top_{i}_p"].distance_to(danmaku_top_slow_p[f"danmaku_top_{j}_p"]) < speed*1.5: 
+            if knife_top_p[f"knife_top_{i}_p"].distance_to(danmaku_top_slow_p[f"danmaku_top_{j}_p"]) < speed*1.8: 
               danmaku_top_slow_dis[danmaku_top_slow_dis_list[j]] = False
               danmaku_top_slow_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
@@ -499,7 +514,7 @@ def main():
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
               score += 4000
 
-            if knife_top_p[f"knife_top_{i}_p"].distance_to(danmaku_top_fast_p[f"danmaku_top_{j}_p"]) < speed*1.5:
+            if knife_top_p[f"knife_top_{i}_p"].distance_to(danmaku_top_fast_p[f"danmaku_top_{j}_p"]) < speed*1.8:
               danmaku_top_fast_dis[danmaku_top_fast_dis_list[j]] = False
               danmaku_top_fast_p[f"danmaku_top_{j}_p"] = danmaku_start[0]
               knife_top_dis[knife_top_dis_list[i]] = False
@@ -508,53 +523,59 @@ def main():
               knife_top_p[f"knife_top_{i}_p"] = knife_start[0]
               score += 8000
             
-            if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_slow_p[f"danmaku_right_{j}_p"]) < speed*1.5: 
+            if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_slow_p[f"danmaku_right_{j}_p"]) < speed*1.8: 
               danmaku_right_slow_dis[danmaku_right_slow_dis_list[j]] = False
               danmaku_right_slow_p[f"danmaku_right_{j}_p"] = danmaku_start[2]
               knife_right_dis[knife_right_dis_list[i]] = False
               if knife_right_p[f"knife_right_{i}_p"] == knife_start[2]:
                 exit_code = '002'
               knife_right_p[f"knife_right_{i}_p"] = knife_start[2]
+              score += 4000
 
-            if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_fast_p[f"danmaku_right_{j}_p"]) < speed*1.5:
+            if knife_right_p[f"knife_right_{i}_p"].distance_to(danmaku_right_fast_p[f"danmaku_right_{j}_p"]) < speed*1.8:
               danmaku_right_fast_dis[danmaku_right_fast_dis_list[j]] = False
               danmaku_right_fast_p[f"danmaku_right_{j}_p"] = danmaku_start[2]
               knife_right_dis[knife_right_dis_list[i]] = False
               if knife_right_p[f"knife_right_{i}_p"] == knife_start[2]:
                 exit_code = '002'
               knife_right_p[f"knife_right_{i}_p"] = knife_start[2]
+              score += 8000
             
-            if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_slow_p[f"danmaku_bottom_{j}_p"]) < speed*1.5: 
+            if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_slow_p[f"danmaku_bottom_{j}_p"]) < speed*1.8: 
               danmaku_bottom_slow_dis[danmaku_bottom_slow_dis_list[j]] = False
               danmaku_bottom_slow_p[f"danmaku_bottom_{j}_p"] = danmaku_start[1]
               knife_bottom_dis[knife_bottom_dis_list[i]] = False
               if knife_bottom_p[f"knife_bottom_{i}_p"] == knife_start[1]:
                 exit_code = '002'
               knife_bottom_p[f"knife_bottom_{i}_p"] = knife_start[1]
+              score += 4000
 
-            if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_fast_p[f"danmaku_bottom_{j}_p"]) < speed*1.5:
+            if knife_bottom_p[f"knife_bottom_{i}_p"].distance_to(danmaku_bottom_fast_p[f"danmaku_bottom_{j}_p"]) < speed*1.8:
               danmaku_bottom_fast_dis[danmaku_bottom_fast_dis_list[j]] = False
               danmaku_bottom_fast_p[f"danmaku_bottom_{j}_p"] = danmaku_start[1]
               knife_bottom_dis[knife_bottom_dis_list[i]] = False
               if knife_bottom_p[f"knife_bottom_{i}_p"] == knife_start[1]:
                 exit_code = '002'
               knife_bottom_p[f"knife_bottom_{i}_p"] = knife_start[1]
+              score += 8000
 
-            if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_slow_p[f"danmaku_left_{j}_p"]) < speed*1.5: 
+            if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_slow_p[f"danmaku_left_{j}_p"]) < speed*1.8: 
               danmaku_left_slow_dis[danmaku_left_slow_dis_list[j]] = False
               danmaku_left_slow_p[f"danmaku_left_{j}_p"] = danmaku_start[3]
               knife_left_dis[knife_left_dis_list[i]] = False
               if knife_left_p[f"knife_left_{i}_p"] == knife_start[3]:
                 exit_code = '002'
               knife_left_p[f"knife_left_{i}_p"] = knife_start[3]
+              score += 4000
 
-            if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_fast_p[f"danmaku_left_{j}_p"]) < speed*1.5:
+            if knife_left_p[f"knife_left_{i}_p"].distance_to(danmaku_left_fast_p[f"danmaku_left_{j}_p"]) < speed*1.8:
               danmaku_left_fast_dis[danmaku_left_fast_dis_list[j]] = False
               danmaku_left_fast_p[f"danmaku_left_{j}_p"] = danmaku_start[3]
               knife_left_dis[knife_left_dis_list[i]] = False
               if knife_left_p[f"knife_left_{i}_p"] == knife_start[3]:
                 exit_code = '002'
               knife_left_p[f"knife_left_{i}_p"] = knife_start[3]
+              score += 8000
 
       screen.blit(font.render("True",exit_flag,'BLACK'),(10,10))
     
@@ -562,7 +583,7 @@ def main():
     while exit_code == '002':
       screen.fill(pg.Color('WHITE'))
       screen.blit(font_finish.render(f"Score {score}",True,'BLACK'),(170,200))
-      screen.blit(font_key.render("Retry      SPACEkey",True,'BLACK'),(160,270))
+      screen.blit(font_key.render("Retry     [SPACE]",True,'BLACK'),(170,270))
       pg.display.update()
       for event in pg.event.get():
         if event.type == pg.QUIT:
