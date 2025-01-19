@@ -8,5 +8,5 @@ WASDキー : 自機の向きの操作<br>
 
 使用させていただいた素材<br>
 spellyon様　[点睛集積](http://dispell.net/index.html)<br>
-廻螺/kaira様　[ニコニ・コモンズ](https://commons.nicovideo.jp/)<br>　
+廻螺/kaira様　[ニコニ・コモンズ](https://commons.nicovideo.jp/)<br>
 yotsuki様　[illustAC](https://www.ac-illust.com/)
